@@ -1,0 +1,15 @@
+SELECT cliente.nombre_cliente, COUNT(pedido.codigo_pedido) FROM cliente LEFT JOIN pedido USING (codigo_cliente) GROUP BY cliente.nombre_cliente;
+
+SELECT cliente.nombre_cliente, SUM(pago.total) FROM cliente LEFT JOIN pago USING (codigo_cliente) GROUP BY cliente.nombre_cliente
+
+SELECT cliente.nombre_cliente, pedido.fecha_pedido FROM cliente JOIN pedido USING (codigo_cliente) WHERE pedido.fecha_pedido > '2007-12-31' AND pedido.fecha_pedido < '2009-01-01' ORDER BY cliente.nombre_cliente;
+
+SELECT cliente.nombre_cliente, empleado.nombre, empleado.apellido1, oficina.telefono FROM cliente JOIN empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado JOIN oficina USING (codigo_oficina) WHERE cliente.codigo_cliente NOT IN (SELECT codigo_cliente FROM pago) ORDER BY cliente.codigo_cliente; 
+
+SELECT cliente.nombre_cliente, empleado.nombre, empleado.apellido1, oficina.ciudad FROM cliente JOIN empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado JOIN oficina USING (codigo_oficina) ORDER BY cliente.codigo_cliente;
+
+SELECT empleado.nombre, empleado.apellido1, empleado.apellido2, empleado.puesto, oficina.telefono FROM empleado JOIN oficina USING (codigo_oficina) WHERE codigo_empleado NOT IN (SELECT codigo_empleado_rep_ventas FROM cliente);
+
+SELECT codigo_oficina, COUNT(codigo_empleado) FROM oficina JOIN empleado USING (codigo_oficina) GROUP BY codigo_oficina;
+
+Exercises from : https://josejuansanchez.org/bd/ejercicios-consultas-sql/index.html#consultas-variadas
